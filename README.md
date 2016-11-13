@@ -1,14 +1,17 @@
-# CA APM Example for Tomcat in Docker
+# CA APM Example for Apache Tomcat in Docker
 
 # Description
-This example extension shows how to install a CA APM Java agent in a Tomcat [Docker](http://www.docker.com/) container. along with your application.
+This example extension shows how to install and configure components that allow the CA APM Java agent to monitor Apache Tomcat in a [Docker](http://www.docker.com/) container. along with your application.
 
 For installation instructions, see the README.md file.
 
 # Short Description
-This example extension shows how to install a CA APM Java agent to monitor Tomcat running on Docker.
+This example extension shows how to install and configure componentst that allow the CA APM Java agent to monitor Tomcat running on Docker.
 
-# APM version
+# APM Version
+CA APM 10.1
+
+# Dependencies
 CA APM 10.1
 
 # Supported Third Party Versions
@@ -17,41 +20,13 @@ Tested with Docker 1.8.2 and 1.9.1.
 # License
 [Apache 2.0 License]
 
-## Prerequisites
-* Install [Docker](http://www.docker.com/).
-* Download IntroscopeAgentFiles-NoInstaller<version>tomcat.unix.tar from the [CA Support](http://support.ca.com) and copy it to the Docker build directory.
+# Prerequisites
 
-# Installation
+2. Install [Docker.](http://www.docker.com/)
+2. Download IntroscopeAgentFiles-NoInstaller<version>tomcat.unix.tar from [CA Support.](http://support.ca.com) 
+3. Copy IntroscopeAgentFiles-NoInstaller<version>tomcat.unix.tar to the Docker build directory.
 
-## Install Using CA APM Control Center
-
-### 10.5 
-
-1. Download the bundle (extension) from the CA APM Marketplace.
-   http://marketplace.ca.com/shop/ca/?cat=29
-2. Go to the Bundles page and click the **Import** button.
-2. Navigate to the downloaded bundle and click **Open**.
-3. On the Packages page, add the bundle to the desired package.
-
-### 10.2 and 10.3
-
-1. Download the extension (bundle) from the CA APM Marketplace.
-   http://marketplace.ca.com/shop/ca/?cat=29
-2. Navigate to the downloaded bundle.
-3. Copy the bundle to the <APMCommandCenterServer>/import directory. 
-   The bundle is automatically imported into the APM Command Center database and moved to the bundles directory.
-
-## Install Manually
-
-### 10.5 and later
-
-1. Download the extension from the CA APM Marketplace.
-   http://marketplace.ca.com/shop/ca/?cat=29
-2. Navigate to the downloaded extension.
-3. Copy the .tar file to the <*Agent_Home*>/extensions/deploy directory.
-   The agent automatically automatically installs and deploys the extension, which starts monitoring the managed application.
-
-### 10.3 and earlier
+# Install and Configure the CA APM Example for Tomcat in Docker
 
 1. Download the extension from the CA APM Marketplace.
    http://marketplace.ca.com/shop/ca/?cat=29
@@ -61,17 +36,22 @@ Tested with Docker 1.8.2 and 1.9.1.
 5. Update the IntroscopeAgent.profile file
    * Navigate to <*Agent_Home*>/core/config to update the IntroscopeAgent.profile file.
    * Add the .pbl files to the directives in the IntroscopeAgent.profile.
+6. Copy the relevant lines from the [Dockerfile](Dockerfile) supplid with the CA APM Example for Tomcat in Docker into your application Dockerfile.
+7. In the Dockerfile, set the environment variables.
 
-# Configuration
-
-1. Copy the relevant lines from the supplied [Dockerfile](Dockerfile) into the Dockerfile of your application.
-2. In your Dockerfile, set the environment variables ``INTROSCOPE_VERSION`` to the the version of the CA APM Java Agent that you downloaded.
-3. Set the environment variables ``EM_HOST``, ``EM_PORT`` to point to your Enterprise Manager and supply an ``AGENT_NAME``. You can do this directly in the Dockerfile when you build the image, from the command line when you start the container or a config file for e.g. [Docker Compose](http://www.docker.com/products/docker-compose).
+   You can set the variables using any of these methods: 
+   * directly in the Dockerfile when you build the image
+   * From the command line when you start the container
+   * In a configuration file. For example, [Docker Compose.](http://www.docker.com/products/docker-compose)
+   
+   a. Set ``INTROSCOPE_VERSION`` to the the version of the CA APM Java Agent that you downloaded.
+   b. Set the environment variables ``EM_HOST`` and ``EM_PORT`` to point to your Enterprise Manager. 
+   c. Spply an ``AGENT_NAME``. 
 
 # Create the Docker Image
 Run ``[sudo] docker build -t <image name>``.
 
-# Start a Docker container
+# Start a Docker Container
 Run ``[sudo] docker run [options] <image name>`` or start the container using the tool of your choice.
 
 # Debugging and Troubleshooting
